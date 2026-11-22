@@ -57,23 +57,28 @@ Fig1 <-
   geom_point(fill = "white", size = 3) +
   scale_color_brewer(palette = "Set1") +
   scale_shape_manual(values = c(16, 18, 21, 23)) +
+  scale_linetype_discrete(
+    labels = c("2000-04" = "2000-2004",
+               "2015-21" = "2015-2021")
+  ) +
+  scale_y_continuous(labels = \(x) sub("^0\\.", ".", sprintf("%.2f", x))) +
   labs(
-    x = "Age",
+    x = "Age Group",
     y = "Proportion",
     color = "Marital Status",
     linetype = "Year",
     shape = "Marital Status"
   ) +
   theme_bw() +
-  theme(legend.position = "bottom",
+  theme(legend.position  = "bottom",
         legend.direction = "vertical",
-        legend.title = element_text(size = rel(1.3)),
-        legend.text  = element_text(size = rel(1.3)),
-        strip.text   = element_text(size = rel(1.3)),
-        axis.text.x  = element_text(size = rel(1.3)),
-        axis.text.y  = element_text(size = rel(1.3)),
-        axis.title.x = element_text(size = rel(1.3)),
-        axis.title.y = element_text(size = rel(1.3)))
+        text         = element_text(colour = "black"),
+        axis.text    = element_text(size = rel(1.3), colour = "black"),
+        axis.ticks   = element_line(colour = "black"),
+        axis.title   = element_text(size = rel(1.3)),
+        legend.title = element_text(size = rel(1.3), face = "plain"),
+        legend.text  = element_text(size = rel(1.3), face = "plain"),
+        strip.text   = element_text(size = rel(1.3)))
 
 print(Fig1)
 
@@ -150,21 +155,26 @@ Fig2 <-
     geom_point(fill = "white", size = 3) +
     scale_color_brewer(palette = "Set1") +
     scale_shape_manual(values = c(16, 18, 21, 23)) +
+    scale_linetype_discrete(
+      labels = c("2000-04" = "2000-2004",
+                 "2015-21" = "2015-2021")
+    ) +
     labs(
       x = "Age Group",
-      y = "ASFR",
+      y = "Age-Specific Fertility Rate",
       linetype = "Year",
       color = "Marital Status",
       shape = "Marital Status"  ) +
     theme_bw() +
-    theme(legend.position = "bottom",
+    theme(legend.position  = "bottom",
           legend.direction = "vertical",
-          legend.title = element_text(size = rel(1.3)),
-          legend.text  = element_text(size = rel(1.3)),
-          axis.text.x  = element_text(size = rel(1.3)),
-          axis.text.y  = element_text(size = rel(1.3)),
-          axis.title.x = element_text(size = rel(1.3)),
-          axis.title.y = element_text(size = rel(1.3)))
+          text         = element_text(colour = "black"),
+          axis.text    = element_text(size = rel(1.3), colour = "black"),
+          axis.ticks   = element_line(colour = "black"),
+          axis.title   = element_text(size = rel(1.3)),
+          legend.title = element_text(size = rel(1.3), face = "plain"),
+          legend.text  = element_text(size = rel(1.3), face = "plain"),
+          strip.text   = element_text(size = rel(1.3)))
 
 print(Fig2)
 
@@ -655,9 +665,14 @@ FigA1 <-
   geom_text(aes(label = sprintf("%.2f", TFR)),
             position = position_dodge(width = 0.9),
             vjust = -0.5,
-            size = 5) +
+            size = 5,
+            color = "black") +
   ylim(0.0, 1.5) +
   scale_fill_manual(values=c("black", "gray50", "white")) +
+  scale_x_discrete(labels = c("2000-04" = "2000-2004",
+                              "2005-09" = "2005-2009",
+                              "2010-14" = "2010-2014",
+                              "2015-21" = "2015-2021")) +
   labs(
     x = "Year",
     y = "Period TFR",
@@ -669,11 +684,11 @@ FigA1 <-
   ) + 
   theme_bw() +
   theme(legend.position = "bottom",
-        legend.text  = element_text(size = rel(1.5)),
-        axis.text.x  = element_text(size = rel(1.5)),
-        axis.text.y  = element_text(size = rel(1.5)),
-        axis.title.x = element_text(size = rel(1.3)),
-        axis.title.y = element_text(size = rel(1.3)))
+        text        = element_text(colour = "black"),
+        legend.text = element_text(size = rel(1.3), face = "plain"),
+        axis.text   = element_text(size = rel(1.5), colour = "black"),
+        axis.ticks  = element_line(colour = "black"),
+        axis.title  = element_text(size = rel(1.3)))
 
 print(FigA1)
 
@@ -697,7 +712,7 @@ FigA3 <-
             position = position_dodge(width = 0.9),
             vjust = -0.5,
             size = 3) +
-  ylim(0.0, 1.0) +
+  scale_y_continuous(limits = c(0,1), labels = \(x) sub("^0\\.", ".", sprintf("%.2f", x))) +
   scale_fill_manual(values=c("black", "gray50", "white")) +
   labs(
     x = "Year",
@@ -710,12 +725,11 @@ FigA3 <-
   ) + 
   theme_bw() +
   theme(legend.position = "bottom",
+        text        = element_text(colour = "black"),
         legend.text  = element_text(size = rel(1.3)),
         strip.text   = element_text(size = rel(1.3)),
-        axis.text.x  = element_text(size = rel(1.3)),
-        axis.text.y  = element_text(size = rel(1.3)),
-        axis.title.x = element_text(size = rel(1.3)),
-        axis.title.y = element_text(size = rel(1.3)))
+        axis.text  = element_text(size = rel(1.3), colour = "black"),
+        axis.title = element_text(size = rel(1.3)))
 
 print(FigA3)
 
@@ -738,9 +752,14 @@ FigA2 <-
   geom_text(aes(label = sprintf("%.2f", TFR)),
             position = position_dodge(width = 0.9),
             vjust = -0.5,
-            size = 5) +
+            size = 5,
+            color = "black") +
   ylim(0.0, 1.5) +
   scale_fill_manual(values=c("black", "gray50", "white")) +
+  scale_x_discrete(labels = c("2000-04" = "2000-2004",
+                              "2005-09" = "2005-2009",
+                              "2010-14" = "2010-2014",
+                              "2015-21" = "2015-2021")) +
   labs(
     x = "Year",
     y = "Period TFR",
@@ -752,11 +771,11 @@ FigA2 <-
   ) + 
   theme_bw() +
   theme(legend.position = "bottom",
-        legend.text  = element_text(size = rel(1.5)),
-        axis.text.x  = element_text(size = rel(1.5)),
-        axis.text.y  = element_text(size = rel(1.5)),
-        axis.title.x = element_text(size = rel(1.3)),
-        axis.title.y = element_text(size = rel(1.3)))
+        text        = element_text(colour = "black"),
+        legend.text = element_text(size = rel(1.3), face = "plain"),
+        axis.text   = element_text(size = rel(1.5), colour = "black"),
+        axis.ticks  = element_line(colour = "black"),
+        axis.title  = element_text(size = rel(1.3)))
 
 print(FigA2)
 
@@ -780,7 +799,7 @@ FigA4 <-
             position = position_dodge(width = 0.9),
             vjust = -0.5,
             size = 3) +
-  ylim(0.0, 1.0) +
+  scale_y_continuous(limits = c(0,1), labels = \(x) sub("^0\\.", ".", sprintf("%.2f", x))) +
   scale_fill_manual(values=c("black", "gray50", "white")) +
   labs(
     x = "Year",
@@ -793,12 +812,11 @@ FigA4 <-
   ) + 
   theme_bw() +
   theme(legend.position = "bottom",
+        text        = element_text(colour = "black"),
         legend.text  = element_text(size = rel(1.3)),
         strip.text   = element_text(size = rel(1.3)),
-        axis.text.x  = element_text(size = rel(1.3)),
-        axis.text.y  = element_text(size = rel(1.3)),
-        axis.title.x = element_text(size = rel(1.3)),
-        axis.title.y = element_text(size = rel(1.3)))
+        axis.text  = element_text(size = rel(1.3), colour = "black"),
+        axis.title = element_text(size = rel(1.3)))
 
 print(FigA4)
 
@@ -857,9 +875,14 @@ FigA6 <-
   geom_text(aes(label = sprintf("%.2f", TFR)),
             position = position_dodge(width = 0.9),
             vjust = -0.5,
-            size = 5) +
+            size = 5,
+            color = "black") +
   ylim(0.0, 2.0) +
   scale_fill_manual(values=c("black", "white")) +
+  scale_x_discrete(labels = c("2000-04" = "2000-2004",
+                              "2005-09" = "2005-2009",
+                              "2010-14" = "2010-2014",
+                              "2015-21" = "2015-2021")) +
   labs(
     x = "Year",
     y = "Period TFR",
@@ -871,12 +894,11 @@ FigA6 <-
   ) + 
   theme_bw() +
   theme(legend.position = "bottom",
-        legend.text  = element_text(size = rel(1.3)),
-        strip.text   = element_text(size = rel(1.3)),
-        axis.text.x  = element_text(size = rel(1.3)),
-        axis.text.y  = element_text(size = rel(1.3)),
-        axis.title.x = element_text(size = rel(1.3)),
-        axis.title.y = element_text(size = rel(1.3)))
+        text        = element_text(colour = "black"),
+        legend.text = element_text(size = rel(1.3), face = "plain"),
+        axis.text   = element_text(size = rel(1.5), colour = "black"),
+        axis.ticks  = element_line(colour = "black"),
+        axis.title  = element_text(size = rel(1.3)))
 
 print(FigA6)
 
