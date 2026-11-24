@@ -1,19 +1,19 @@
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+# ========================================================================== #
 # 02_Analysis_period.R
 #  Outline:
 #  - Calculate observed/counterfactual period total fertility rates (PTFR).
 #  - Generate period-based counterparts to the cohort-based figures: 
 #    Figures 1 and 2, and Appendix Figures A1-A4 and A6.
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+# ========================================================================== #
 
 rm(list=ls())
 
 source("01_Script/00_SetParameters.R")
 
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+# ========================================================================== #
 #  Calculate Marital-Status-Specific Fertility Rates (Pfx) ----
 #  See Equation 1 components in the text
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+# ========================================================================== #
 tbl_exp_NofBth <- 
   readRDS("00_Data/tbl_exp_NofBth_p.rds") |> 
   filter(Year5y %in% c("2000-04", "2005-09", "2010-14", "2015-21")) |> 
@@ -183,9 +183,9 @@ ggsave(filename = paste0(OutDir_p, "Figure2.pdf"),
        width  = 9,
        height = 6)
 
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+# ========================================================================== #
 # Birth hazard ratio  ----
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+# ========================================================================== #
 # set ASFR
 ASFR_temp <- 
   tbl_exp_NofBth |> 
@@ -388,11 +388,11 @@ Ratio2Div |>
           max  = max(RatioPfx),
           mean = mean(RatioPfx))
 
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+# ========================================================================== #
 # Counterfactual analysis ----
 #   Pattern A: First-married women paired with remarried men do NOT marry (returned to never-married state).
 #   Pattern B: First-married women paired with remarried men marry first-married men.
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
+# ========================================================================== #
 ## No divorce A ----
 PropExp_NoDiv_A <- 
   tbl_fx_obs |> 
