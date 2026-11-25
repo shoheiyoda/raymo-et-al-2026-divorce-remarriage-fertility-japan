@@ -39,8 +39,12 @@ tbl_fx_obs <-
 tbl_Fig1 <-
   tbl_fx_obs |> 
   filter(Year5y %in% c("2000-04", "2015-21")) |> 
-  filter(MarStat != "First married(Remar)") |> 
   filter(Weight == "wt") |>
+  mutate(MarStat = if_else(MarStat %in% c("First married(1st)", "First married(Remar)"), "First married", MarStat) |> 
+           fct_relevel("Never married", "First married", "Formerly married", "Remarried")
+  ) |> 
+  group_by(Year5y, CAge5y, BirthOrder, MarStat) |> 
+  reframe(PropExp = sum(PropExp)) |>
   group_by(Year5y, CAge5y, MarStat) |>
   reframe(PropExp = mean(PropExp))
 
